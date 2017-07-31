@@ -19,9 +19,18 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/bower_components/bootstrap/dist/css/bootstrap.min.css",
+        "assets/bower_components/font-awesome/css/font-awesome.min.css",
+        "assets/bower_components/Ionicons/css/ionicons.min.css",
+        "assets/dist/css/AdminLTE.min.css",
+        "assets/dist/css/skins/skin-blue.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/bower_components/jquery/dist/jquery.min.js",
+        "assets/bower_components/bootstrap/dist/js/bootstrap.min.js",
+        "assets/dist/js/adminlte.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
