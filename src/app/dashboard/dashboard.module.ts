@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { DashboardComponent } from './dashboard.component';
     HeaderComponent,
     NavbarComponent,
     SidebarComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomeComponent
   ]
 })
 export class DashboardModule { }
