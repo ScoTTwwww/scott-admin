@@ -1,0 +1,50 @@
+<div class="box box-primary">
+
+  <div class="box-header with-border">
+    <h3 class="box-title fontCss">新增費用</h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form class="form-horizontal" [formGroup]="form">
+    <div class="box-body">
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">項目</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="region" formControlName="item" [(ngModel)]="dataList.item">
+            <option value="null" disabled><span class="fontCss">請選擇</span></option>
+            <option *ngFor="let O of data" [value]="O.item" ><span class="fontCss">{{ O.item }}</span></option>
+         </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">日期</label>
+        <div class="col-sm-10">
+          <div class="input-group">
+            <input class="form-control" style="float:none" placeholder="請選擇日期" ngx-mydatepicker name="myDate" formControlName="date" [options]="myOptions" #dp="ngx-mydatepicker" (focus)="dp.toggleCalendar()" [(ngModel)]="dataList.date">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" (click)="dp.clearDate()"> clear</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">金額</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputPassword3" placeholder="請輸入金額" formControlName="account" [(ngModel)]="dataList.account">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">說明</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" rows="3" placeholder="請填寫細項說明" formControlName="text" [(ngModel)]="dataList.text"></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <!--   <button type="button" class="btn btn-default" (click)="clear()">清空</button>-->
+      <button type="button" class="btn btn-info pull-right" [disabled]="!form.valid" (click)="doSave()">儲存</button>
+    </div>
+    <!-- /.box-footer -->
+  </form>
+</div>

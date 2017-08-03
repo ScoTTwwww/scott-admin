@@ -30,10 +30,7 @@
         "assets/bower_components/jquery/dist/jquery.min.js",
         "assets/bower_components/bootstrap/dist/js/bootstrap.min.js",
         "assets/dist/js/adminlte.min.js",
-        "assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js",
-        "assets/bower_components/fastclick/lib/fastclick.js",
-        "assets/dist/js/adminlte.min.js",
-        "assets/dist/js/demo.js"
+        "assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
