@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import {StoreModule} from '@ngrx/store';
+import { HomeReducer } from './dashboard/home/shared/home.reducer';
+import { SharedModule } from './shared';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,11 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AppRoutingModule,
     DashboardModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule.forRoot(),
+    
+    
+    
   ] ,
   providers: [],
   bootstrap: [AppComponent]

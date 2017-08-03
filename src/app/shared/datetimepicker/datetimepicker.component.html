@@ -1,0 +1,51 @@
+<div class="input-group dropdown" dropdown [autoClose]="dropdownConfig.autoClose" [isOpen]="dropdownConfig.isOpen" (isOpenChange)="isOpenChange($event)" [isDisabled]="disabled">
+  <input type="text" class="form-control" [(ngModel)]="value" (blur)="onBlur()" (click)="isOpenChange(!dropdownConfig.isOpen)" [disabled]="disabled">
+  <div class="dropdown-menu">
+    <datepicker *ngIf="['date', 'datetime'].indexOf(datetimeMode) != -1"
+      [(ngModel)]="date"
+      [activeDate]="activeDate"
+      [datepickerMode]="datepickerMode"
+      [initDate]="initDate"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [minMode]="minMode"
+      [maxMode]="maxMode"
+      [showWeeks]="showWeeks"
+      [formatDay]="formatDay"
+      [formatMonth]="formatMonth"
+      [formatYear]="formatYear"
+      [formatDayHeader]="formatDayHeader"
+      [formatDayTitle]="formatDayTitle"
+      [formatMonthTitle]="formatMonthTitle"
+      [startingDay]="startingDay"
+      [yearRange]="yearRange"
+      [customClass]="customClass"
+      [dateDisabled]="dateDisabled"
+      [onlyCurrentMonth]="onlyCurrentMonth"
+      [shortcutPropagation]="shortcutPropagation"
+      [monthColLimit]="monthColLimit"
+      [yearColLimit]="yearColLimit"
+      (selectionDone)="onSelectionDone($event)"
+      (activeDateChange)="onActiveDateChange($event)">
+    </datepicker>
+    <div class="well-sm">
+      <button type="button" class="btn btn-sm btn-info pull-right" (click)="today()" *ngIf="['date', 'datetime'].indexOf(datetimeMode) != -1">今天</button>
+      <timepicker *ngIf="['time', 'datetime'].indexOf(datetimeMode) != -1"
+        [(ngModel)]="date"
+        [arrowkeys]="arrowkeys"
+        [hourStep]="hourStep"
+        [max]="max"
+        [meridians]="meridians"
+        [min]="min"
+        [minuteStep]="minuteStep"
+        [mousewheel]="mousewheel"
+        [readonlyInput]="readonlyInput"
+        [showMeridian]="showMeridian"
+        [showSpinners]="showSpinners">
+      </timepicker>
+    </div>
+  </div>
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button" dropdownToggle><i class="fa fa-calendar" aria-hidden="true"></i></button>
+  </span>
+</div>

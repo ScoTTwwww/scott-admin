@@ -15,15 +15,15 @@
                     <th style="width: 15%">日期</th>
                     <th style="width: 15%">功能</th>
                   </tr>
-                  <tr *ngFor="let O of dataLists; let index = index">
-                    <td>{{ index + 1 }}</td>
+                  <tr *ngFor="let O of dataLists | filterItem: filterItem; let index = index">
+                    <td>{{ O.id }}</td>
                     <td><a>{{ O.item }}</a></td>
                     <th>${{ O.account }}</th>
                     <td>{{ O.text }}</td>
                     <td>{{ O.date.date.year }}-{{ O.date.date.month }}-{{ O.date.date.day }}</td>
                     <th>
-                      <a (click)="edit.emit(O.id)">編輯</a>
-                      <a (click)="delete.emit(O.id)">刪除</a>
+                      <a style="cursor:pointer" (click)="edit.emit(O.id)">編輯</a>
+                      <a style="cursor:pointer" (click)="delete.emit(O.id)">刪除</a>
                     </th>
                   </tr>
                   
@@ -52,4 +52,4 @@
             </div>
           </div>
         </div>
-{{ dataList | json}}
+{{ dataLists | json}}

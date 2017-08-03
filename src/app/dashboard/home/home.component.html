@@ -27,15 +27,11 @@
                 </button>
             </div>
           </div>
-          <div class="box-body no-padding">
-            <ul class="nav nav-pills nav-stacked">
-              <li class="active"><a href="#"><i class="fa fa-file-text-o"></i><span class="fontCss"> 全部</span><span class="label label-primary pull-right">12</span></a></li>
-              <li class="active"><a href="#"><i class="fa fa-cutlery"></i><span class="fontCss"> 伙食費</span><span class="label label-primary pull-right">12</span></a></li>
-              <li><a href="#"><i class="fa fa-home"></i><span class="fontCss"> 住宿費</span></a></li>
-              <li><a href="#"><i class="fa fa-car"></i><span class="fontCss"> 交通費</span></a></li>
-              <li><a href="#"><i class="fa fa-gamepad"></i><span class="fontCss"> 娛樂費</span><span class="label label-warning pull-right">65</span></a></li>
-            </ul>
-          </div>
+     <app-action
+      [dataLists]="dataLists"
+      [filterItem]="filterItem"
+      (filter)="filter($event)" 
+     ></app-action>
           <!-- /.box-body -->
         </div>
         <!-- /. box -->
@@ -50,8 +46,8 @@
           </div>
           <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="#"><i class="fa fa-circle-o text-red"></i><span class="fontCss"> 新增費用項目</span></a></li>
-              <li><a href="#"><i class="fa fa-circle-o text-yellow"></i><span class="fontCss"> 查看各月費用支出</span></a></li>
+              <li><a href="#"><i class="fa fa-circle-o text-red"></i><span class="fontCss"> 查看各月費用支出</span></a></li>
+              <li><a href="#"><i class="fa fa-circle-o text-yellow"></i><span class="fontCss"> 列印本月份支出</span></a></li>
               <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
             </ul>
           </div>
@@ -70,6 +66,7 @@
          <app-list
          *ngIf="type"
           [dataLists]="dataLists"
+          [filterItem]="filterItem"
           (edit)="edit($event)" 
           (delete)="delete($event)" 
          ></app-list>

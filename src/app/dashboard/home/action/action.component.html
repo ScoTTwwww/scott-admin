@@ -1,0 +1,10 @@
+<div class="box-body no-padding">
+  <ul class="nav nav-pills nav-stacked">
+    <li [ngClass]="{ active: filterItem == null }" style="cursor:pointer" (click)="doClick(null)"><a><i class="fa fa-file-text-o"></i><span class="fontCss"> 全部</span><span class="label label-primary pull-right">{{ account() }}</span></a></li>
+    <li [ngClass]="{ active: filterItem == '伙食費' }" style="cursor:pointer" (click)="doClick('伙食費')"><a><i class="fa fa-cutlery"></i><span class="fontCss"> 伙食費</span><span *ngIf="account('伙食費')>0" class="label label-primary pull-right">{{ account('伙食費') }}</span></a></li>
+    <li [ngClass]="{ active: filterItem == '住宿費' }" style="cursor:pointer" (click)="doClick('住宿費')"><a><i class="fa fa-home"></i><span class="fontCss"> 住宿費</span><span *ngIf="account('住宿費')>0" class="label label-primary pull-right">{{ account('住宿費') }}</span></a></li>
+    <li [ngClass]="{ active: filterItem == '交通費' }" style="cursor:pointer" (click)="doClick('交通費')"><a><i class="fa fa-car"></i><span class="fontCss"> 交通費</span><span *ngIf="account('交通費')>0" class="label label-primary pull-right">{{ account('交通費') }}</span></a></li>
+    <li [ngClass]="{ active: filterItem == '娛樂費' }" style="cursor:pointer" (click)="doClick('娛樂費')" ><a><i class="fa fa-gamepad"></i><span class="fontCss"> 娛樂費</span><span *ngIf="account('娛樂費')>0" class="label label-primary pull-right">{{ account('娛樂費') }}</span></a></li>
+  </ul>
+</div>
+{{ account('伙食費') }}
