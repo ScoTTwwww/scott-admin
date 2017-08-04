@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { HomeService } from './shared/home.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { ToastService } from '../../shared/';
+import { ToastService, ModalService } from '../../shared/';
+
+import * as Rx from 'rxjs/Rx';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +14,7 @@ import { ToastService } from '../../shared/';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  dataLists$: Observable<any>;
-
+  dataLists$: Observable<Array<any>>;
   data = [{ 'item': '伙食費' },
   { 'item': '住宿費' },
   { 'item': '交通費' },
@@ -46,12 +47,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private toastr_original: ToastsManager,
     private toastService: ToastService,
-    private vRef: ViewContainerRef
+    private vRef: ViewContainerRef,
+    public modalService: ModalService,
+    private homeService: HomeService
   ) {
     this.toastr_original.setRootViewContainerRef(vRef);
+    this.dataLists$ = this.homeService.dataLists$;
   }
 
   ngOnInit() {
+
   }
 
   change() {
@@ -60,18 +65,24 @@ export class HomeComponent implements OnInit {
   }
 
   save(data) {
-    this.type = true;
-    var filterToStatus = _.findIndex(this.dataLists, (O) => { return O.id == data.id });
+    this.modalService.confirm('是否確定儲存？', "訊息").then((result) => {
+      if (result) {
+        this.type = true;
+        if (data.id) {
+          var newDataList = _.assign({}, data.dataList, {
+            id: data.id
+          });
+          this.homeService.edit(newDataList);
+          this.toastService.success("編輯成功!")
+        } else {
+          // this.dataLists.push(data.dataList);
+          this.homeService.create(data.dataList);
+          this.toastService.success("新增成功!")
+        }
+      }
+    });
 
 
-    if (data.id) {
-      this.dataLists[filterToStatus] = data.dataList;
-      setTimeout(this.toastService.success('編輯成功!'), 1000)
-      console.log(filterToStatus)
-    } else {
-      this.dataLists.push(data.dataList);
-      setTimeout(this.toastService.success('新增成功!'), 1000)
-    }
 
   }
 
@@ -83,8 +94,16 @@ export class HomeComponent implements OnInit {
 
   delete(id) {
     //var filterToStatus = _.findIndex(this.dataLists, (O) => { return O.id == id });
-    _.remove(this.dataLists, function (n) {
-      return n.id == id;
+    /*     _.remove(this.dataLists, function (n) {
+          return n.id == id;
+        });
+     */
+
+    this.modalService.confirm('是否確定刪除？', "訊息").then((result) => {
+      if (result) {
+        this.homeService.delete(id);
+        this.toastService.success("刪除成功!")
+      }
     });
 
     //  this.dataLists.splice(filterToStatus,1);

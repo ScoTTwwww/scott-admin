@@ -1,32 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { CREATE, EDIT, DELETE, RESET } from './home.reducer';
 
-import { HomeState } from './home.reducer';
-import { HomeAction } from './home.action';
+interface AppState {
+    counter: Array<any>;
+}
 
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const RESET = 'RESET';
+
 
 @Injectable()
 export class HomeService {
-    dataLists$: Observable<HomeState>;
+    AppState$: Observable<AppState>;
+    dataLists$: Observable<Array<any>>;
 
-    constructor(
-        private store: Store<any>,
-        private homeAction: HomeAction,
+    constructor(private store: Store<AppState>) {
+        this.dataLists$ = store.select<any>('counter');
+    }
 
-    ) {
-        this.dataLists$ = this.store.select(store => store.dataLists);
+    create(dataList) {
+        this.store.dispatch({
+            type: CREATE,
+            payload: dataList
+        });
+    }
 
+    edit(dataList) {
+        this.store.dispatch({
+            type: EDIT,
+            payload: dataList
+        });
+    }
+
+    delete(id) {
+        this.store.dispatch({
+            type: DELETE,
+            payload: id
+        });
 
     }
 
-    dispatchLoad(dataLists) {
-        this.store.dispatch(this.homeAction.load(dataLists));
+    reset() {
+        this.store.dispatch({ type: RESET });
     }
-
 
 }

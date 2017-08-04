@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  @Input() dataLists: any;
+  @Input() dataLists: Array<any>;
   @Input() filterItem : any;
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();

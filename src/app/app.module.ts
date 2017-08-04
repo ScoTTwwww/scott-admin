@@ -6,8 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import {StoreModule} from '@ngrx/store';
-import { HomeReducer } from './dashboard/home/shared/home.reducer';
+
 import { SharedModule } from './shared';
+ 
+import { counterReducer } from './dashboard/home/shared/home.reducer';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,7 @@ import { SharedModule } from './shared';
     FormsModule,
     ReactiveFormsModule,
     SharedModule.forRoot(),
-    
+    StoreModule.forRoot({ counter: counterReducer })
     
     
   ] ,

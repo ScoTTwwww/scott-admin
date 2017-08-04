@@ -28,7 +28,7 @@
             </div>
           </div>
      <app-action
-      [dataLists]="dataLists"
+      [dataLists]="dataLists$ | async"
       [filterItem]="filterItem"
       (filter)="filter($event)" 
      ></app-action>
@@ -65,7 +65,7 @@
          ></app-form>
          <app-list
          *ngIf="type"
-          [dataLists]="dataLists"
+          [dataLists]="dataLists$ | async"
           [filterItem]="filterItem"
           (edit)="edit($event)" 
           (delete)="delete($event)" 
