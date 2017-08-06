@@ -1,0 +1,42 @@
+<form class="form-horizontal"  [formGroup]="form">
+ 
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 fontCss2">伙食費</label>
+      <div class="col-sm-10">
+        <div class="range" style="margin-top: 0px">
+          <input type="range" name="range" min="1" max="20000" formControlName="amount1" [(ngModel)]="sliderLists.amount1">
+          <output id="rangePrimary">$ {{  form.controls['amount1'].value }}</output>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 fontCss2">住宿費</label>
+      <div class="col-sm-10">
+        <div class="range" style="margin-top: 0px">
+          <input type="range" name="range" min="1" max="20000" formControlName="amount2" [(ngModel)]="sliderLists.amount2">
+          <output id="rangePrimary">$ {{  form.controls['amount2'].value }}</output>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 fontCss2">交通費</label>
+      <div class="col-sm-10">
+        <div class="range" style="margin-top: 0px">
+          <input type="range" name="range" min="1" max="20000" formControlName="amount3" [(ngModel)]="sliderLists.amount3">
+          <output id="rangePrimary">$ {{  form.controls['amount3'].value }}</output>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 fontCss2">娛樂費</label>
+      <div class="col-sm-10">
+        <div class="range" style="margin-top: 0px">
+          <input type="range" name="range" min="1" max="20000" formControlName="amount4" [(ngModel)]="sliderLists.amount4">
+          <output id="rangePrimary">$ {{  form.controls['amount4'].value }}</output>
+        </div>
+      </div>
+    </div>
+ 
+</form>
+
+ 

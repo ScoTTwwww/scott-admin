@@ -1,0 +1,56 @@
+<div class="alert alert-danger alert-dismissible" 
+*ngIf="(sliderLists.amount1 < totalLists.amount1) || 
+       (sliderLists.amount2 < totalLists.amount2) ||
+       (sliderLists.amount3 < totalLists.amount3) ||
+       (sliderLists.amount4 < totalLists.amount)">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <h4><i class="icon fa fa-warning"></i>支出費用超出警告!</h4>
+  <span *ngIf="sliderLists.amount1 < totalLists.amount1">伙食費額度超出 {{ totalLists.amount1 - sliderLists.amount1 }} 元 !</span><br *ngIf="sliderLists.amount1 < totalLists.amount1">
+  <span *ngIf="sliderLists.amount2 < totalLists.amount2">住宿費額度超出 {{ totalLists.amount2 - sliderLists.amount2 }} 元 !</span><br *ngIf="sliderLists.amount2 < totalLists.amount2">
+  <span *ngIf="sliderLists.amount3 < totalLists.amount3">交通費額度超出 {{ totalLists.amount3 - sliderLists.amount3 }} 元 !</span><br *ngIf="sliderLists.amount3 < totalLists.amount3">
+  <span *ngIf="sliderLists.amount4 < totalLists.amount4">娛樂費額度超出 {{ totalLists.amount4 - sliderLists.amount4 }} 元 !</span><br *ngIf="sliderLists.amount4 < totalLists.amount4">
+</div>
+<div class="box box-primary">
+  <!-- /.box-header -->
+  <div class="box-body no-padding">
+
+    <div class="table-responsive mailbox-messages">
+      <table class="table table-hover fontCss2">
+        <tr>
+          <th style="width: 8%">#</th>
+          <th style="width: 12%">項目</th>
+          <th style="width: 38%">總金額佔成(%)</th>
+          <th style="width: 12%"> </th>
+          <th style="width: 15%">筆數</th>
+          <th style="width: 15%">總額</th>
+        </tr>
+        <tr *ngFor="let O of dataLists | filterTotal: filterItem ; let index = index">
+          <td *ngIf="O.item != 'all'">{{ index + 1 }}.</td>
+          <td *ngIf="O.item != 'all'">{{ O.item }}</td>
+          <td *ngIf="O.item != 'all'">
+            <div class="progress progress-xs">
+              <div class="progress-bar progress-bar-danger" [ngStyle]="{ width: total(O.amount,O.total)  | percent:'1.1-2'  }"></div>
+            </div>
+          </td>
+          <td *ngIf="O.item != 'all'"><span class="badge bg-red">{{  total(O.amount,O.total)  | percent:'1.0-0' }}</span></td>
+          <td *ngIf="O.item != 'all'"><span>共{{  O.count }}筆</span></td>
+          <td *ngIf="O.item != 'all'"><span>$ {{ O.amount }}</span></td>
+
+          <td *ngIf="O.item == 'all'" style=" background-color: #ececec;">總額 </td>
+          <td *ngIf="O.item == 'all'" style=" background-color: #ececec;"> </td>
+          <td *ngIf="O.item == 'all'" style=" background-color: #ececec;"> </td>
+          <td *ngIf="O.item == 'all'" style=" background-color: #ececec;"> </td>
+          <td *ngIf="O.item == 'all'" style=" background-color: #ececec;">共{{ O.count }}筆 </td>
+          <td *ngIf="O.item == 'all'" style=" background-color: #ececec;"> $ {{ O.amount }}</td>
+        </tr>
+
+      </table>
+      <!-- /.table -->
+    </div>
+
+    <!-- /.mail-box-messages -->
+  </div>
+  <!-- /.box-body -->
+
+</div>
+ 

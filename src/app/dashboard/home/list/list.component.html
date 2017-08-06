@@ -1,11 +1,8 @@
 <div class="box box-primary">
-
           <!-- /.box-header -->
           <div class="box-body no-padding">
-
             <div class="table-responsive mailbox-messages">
               <table class="table table-hover table-striped fontCss2">
-
                 <tbody>
                    <tr>
                     <th style="width: 3%">#</th>
@@ -15,19 +12,17 @@
                     <th style="width: 15%">日期</th>
                     <th style="width: 15%">功能</th>
                   </tr>
-                  <tr *ngFor="let O of dataLists | filterItem: filterItem; let index = index">
-                    <td>{{ O.id }}</td>
+                  <tr *ngFor="let O of dataLists | filterItem: filterItem ; let index = index">
+                    <td>{{ index + 1 }}</td>
                     <td><a>{{ O.item }}</a></td>
-                    <th>${{ O.account }}</th>
+                    <th>$ {{ O.amount }}</th>
                     <td>{{ O.text }}</td>
                     <td>{{ O.date.date.year }}-{{ O.date.date.month }}-{{ O.date.date.day }}</td>
                     <th>
-                      <a style="cursor:pointer" (click)="edit.emit(O.id)">編輯</a>
+                      <a style="cursor:pointer" (click)="doEdit(O.id)">編輯</a>
                       <a style="cursor:pointer" (click)="delete.emit(O.id)">刪除</a>
                     </th>
                   </tr>
-                  
-
                 </tbody>
               </table>
               <!-- /.table -->
@@ -52,4 +47,4 @@
             </div>
           </div>
         </div>
-{{ dataLists | json}}
+ 

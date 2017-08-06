@@ -7,4 +7,3 @@
     <li [ngClass]="{ active: filterItem == '娛樂費' }" style="cursor:pointer" (click)="doClick('娛樂費')" ><a><i class="fa fa-gamepad"></i><span class="fontCss"> 娛樂費</span><span *ngIf="account('娛樂費')>0" class="label label-primary pull-right">{{ account('娛樂費') }}</span></a></li>
   </ul>
 </div>
-{{ account('伙食費') }}

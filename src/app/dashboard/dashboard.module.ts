@@ -15,12 +15,15 @@ import { HomeComponent } from './home/home.component';
 import { FormComponent } from './home/form/form.component';
 import { ListComponent } from './home/list/list.component';
 import { FilterItemPipe } from './home/shared/filter-item.pipe';
+import { FilterTotalPipe } from './home/shared/filter-total.pipe';
 import { ActionComponent } from './home/action/action.component';
 
  
 import { HomeService } from './home/shared/home.service';
  
 import { SharedModule } from '../shared';
+import { ListTotalComponent } from './home/list-total/list-total.component';
+import { SliderComponent } from './home/slider/slider.component';
  
 
 @NgModule({
@@ -40,8 +43,13 @@ import { SharedModule } from '../shared';
     HomeComponent,
     FormComponent,
     ListComponent,
+    
     FilterItemPipe,
-    ActionComponent
+    FilterTotalPipe,
+
+    ActionComponent,
+    ListTotalComponent,
+    SliderComponent
   ],
   providers: [
     HomeService

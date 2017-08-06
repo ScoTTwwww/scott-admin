@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,34 +15,21 @@ import * as Rx from 'rxjs/Rx';
 })
 export class HomeComponent implements OnInit {
   dataLists$: Observable<Array<any>>;
+  dataList$: Observable<any>;
+  sliderLists$: Observable<any>;
+  totalLists$: Observable<any>;
+  @ViewChild('templateRef') templateRef: TemplateRef<any>;
+
   data = [{ 'item': '伙食費' },
-  { 'item': '住宿費' },
-  { 'item': '交通費' },
-  { 'item': '娛樂費' }]
+          { 'item': '住宿費' },
+          { 'item': '交通費' },
+          { 'item': '娛樂費' }]
   dataList = null;
-  dataLists = [{
-    id: 1,
-    item: '交通費',
-    account: 200,
-    date: { "date": { "year": 2017, "month": 8, "day": 3 }, "jsdate": "2017-08-02T16:00:00.000Z", "formatted": "2017.08.03", "epoc": 1501689600 },
-    text: "搭高鐵北上"
-  }, {
-    id: 2,
-    item: '住宿費',
-    account: 2000,
-    date: { "date": { "year": 2017, "month": 8, "day": 3 }, "jsdate": "2017-08-02T16:00:00.000Z", "formatted": "2017.08.03", "epoc": 1501689600 },
-    text: "公差住台北"
-  }, {
-    id: 3,
-    item: '娛樂費',
-    account: 300,
-    date: { "date": { "year": 2017, "month": 8, "day": 3 }, "jsdate": "2017-08-02T16:00:00.000Z", "formatted": "2017.08.03", "epoc": 1501689600 },
-    text: "去看電影"
-  }
-  ];
+  totalLists;
   filterItem = null;
   data2 = [{ 1: '伙食費', 2: '住宿費' }];
-  type = true;
+  type = "back";
+  dialogRef: any;
 
   constructor(
     private toastr_original: ToastsManager,
@@ -53,43 +40,55 @@ export class HomeComponent implements OnInit {
   ) {
     this.toastr_original.setRootViewContainerRef(vRef);
     this.dataLists$ = this.homeService.dataLists$;
+    this.dataList$ = this.homeService.dataList$;
+    this.sliderLists$ = this.homeService.sliderLists$;
+    this.totalLists$ = this.homeService.totalLists$;
   }
 
   ngOnInit() {
-
+    this.dataLists$.take(1).subscribe((dataList) => {
+      this.homeService.totalLists(this.totals(dataList));
+    })
   }
 
-  change() {
+  change(type) {
+    if (type == 'add') {
+      this.homeService.clearForm();
+    }
     this.dataList = null;
-    return this.type = !this.type
+    this.type = type;
   }
 
   save(data) {
     this.modalService.confirm('是否確定儲存？', "訊息").then((result) => {
       if (result) {
-        this.type = true;
+        this.type = "back";
         if (data.id) {
           var newDataList = _.assign({}, data.dataList, {
             id: data.id
           });
           this.homeService.edit(newDataList);
+          this.dataLists$.take(1).subscribe((dataList) => {
+            this.homeService.totalLists(this.totals(dataList));
+          })
           this.toastService.success("編輯成功!")
         } else {
           // this.dataLists.push(data.dataList);
           this.homeService.create(data.dataList);
+          this.dataLists$.take(1).subscribe((dataList) => {
+            this.homeService.totalLists(this.totals(dataList));
+          })
           this.toastService.success("新增成功!")
         }
       }
     });
-
-
-
   }
 
-  edit(data) {
-    var dataListFindById = _.find(this.dataLists, { id: data });
-    this.dataList = dataListFindById;
-    this.type = false;
+  edit(id) {
+    //var dataListFindById = _.find(this.dataLists, { id: data });
+    this.homeService.listEdit(id);
+    // this.dataList = dataListFindById;
+    this.type = "add";
   }
 
   delete(id) {
@@ -98,18 +97,57 @@ export class HomeComponent implements OnInit {
           return n.id == id;
         });
      */
-
     this.modalService.confirm('是否確定刪除？', "訊息").then((result) => {
       if (result) {
         this.homeService.delete(id);
+        this.dataLists$.take(1).subscribe((dataList) => {
+          this.homeService.totalLists(this.totals(dataList));
+        })
         this.toastService.success("刪除成功!")
       }
     });
-
     //  this.dataLists.splice(filterToStatus,1);
   }
 
   filter(item) {
     this.filterItem = item;
   }
+
+  fn() {
+    //this.modalService.alert("施工中", "訊息")
+    this.modalService.open(this.templateRef, { isBlocking: false, dialogClass: 'modal-dialog' }).then(dialog => {
+      this.dialogRef = dialog;
+    });
+  }
+
+  totals(dataLists) {
+    const data = [];
+    const total = { amount1: 0, amount2: 0, amount3: 0, amount4: 0 };
+
+    _.last(_.map(dataLists, (dataList) => {
+      if (_.findIndex(data, function (O) { return O.item == dataList.item; }) < 0) {
+
+        switch (dataList.item) {
+          case '伙食費': {
+            total.amount1 += dataList.amount;
+            break;
+          }
+          case '住宿費': {
+            total.amount2 += dataList.amount;
+            break;
+          }
+          case '交通費': {
+            total.amount3 += dataList.amount;
+            break;
+          }
+          case '娛樂費': {
+            total.amount4 += dataList.amount;
+            break;
+          }
+        }   
+      }     
+    }));
+    return total
+  }
+
 }

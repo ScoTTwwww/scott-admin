@@ -17,11 +17,9 @@ export class ModalService {
   ) { }
 
   public alert(message: string, title?: string, options?: any): Promise<DialogRef<any>> {
-    message = "message";
-    title = "title";
     options = options || {};
 
-    const okBtn: string = "okBtn";
+    const okBtn: string = "確定";
     const okBtnClass: string = options.okBtnClass || 'btn btn-primary';
 
     return this.modal.alert()

@@ -30,7 +30,7 @@ export class FormComponent implements OnInit {
     this.form = this.formBuilder.group({
       item: new FormControl(null, Validators.required),
       date: new FormControl('', Validators.required),
-      account: new FormControl('', Validators.required),
+      amount: new FormControl('', Validators.required),
       text: new FormControl('', Validators.required),
     });
   }
@@ -40,11 +40,12 @@ export class FormComponent implements OnInit {
       this.dataList = {
         item: null,
         date: null,
-        account: null,
+        amount: null,
         text: null
       }
     }
   }
+  
   setDate(): void {
     // Set today date using the setValue function
     let date = new Date();
@@ -64,7 +65,6 @@ export class FormComponent implements OnInit {
 
   doSave() {
      var ObjectAddId = _.assign({}, this.form.value, { id: this.dataListsNum() });
-
      var ArrayData = { dataList: ObjectAddId , id: this.dataList.id }
      this.save.emit(ArrayData);
   }
@@ -75,7 +75,6 @@ export class FormComponent implements OnInit {
     //那物件的Id + 1 回傳最大Id+1
 
     var findIndexById1 = _.findIndex(this.dataLists, function (O) { return O.id == 1; })
-
     if (findIndexById1 < 0) {
       return 1
     } else {

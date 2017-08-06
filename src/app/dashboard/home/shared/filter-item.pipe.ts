@@ -5,23 +5,18 @@ import * as _ from 'lodash';
     name: 'filterItem'
 })
 
-
 export class FilterItemPipe implements PipeTransform {
 
-    constructor(
-
-    ) { }
+    constructor() { }
 
     transform(dataLists: Array<any>, item: string): any {
         if (!item) {
             return dataLists
         } else {
-            return  _.filter(dataLists, { item: item })
+            return _.filter(dataLists, { item: item })
                 .map(dataList => {
                     return dataList
                 })
-                 
         }
-
     }
 }

@@ -5,11 +5,9 @@
          生活支出
         <span  style="font-size: 14px;font-weight:bold;">管理</span>
     </span>
-
-
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Mailbox</li>
+      <li class="active">CostOfLiving</li>
     </ol>
   </section>
 
@@ -17,7 +15,8 @@
   <section class="content">
     <div class="row">
       <div class="col-md-3">
-        <a class="btn btn-primary btn-block margin-bottom" (click)="change()"><span *ngIf="!type" class="fontCss2">返回費用列表</span><span *ngIf="type" class="fontCss2">新增費用</span></a>
+        <a *ngIf="type == 'back'" class="btn btn-primary btn-block margin-bottom" (click)="change('add')"><span class="fontCss2">新增費用</span></a>
+        <a *ngIf="type == 'add'" class="btn btn-primary btn-block margin-bottom" (click)="change('back')"><span  class="fontCss2">返回費用列表</span></a>
         <div class="box box-solid">
           <div class="box-header with-border">
             <h3 class="box-title fontCss2">生活費用</h3>
@@ -38,7 +37,6 @@
         <div class="box box-solid">
           <div class="box-header with-border">
             <h3 class="box-title fontCss2">功能</h3>
-
             <div class="box-tools">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -46,9 +44,7 @@
           </div>
           <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="#"><i class="fa fa-circle-o text-red"></i><span class="fontCss"> 查看各月費用支出</span></a></li>
-              <li><a href="#"><i class="fa fa-circle-o text-yellow"></i><span class="fontCss"> 列印本月份支出</span></a></li>
-              <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
+              <li (click)="fn()"><a href="#" ><i class="fa fa-circle-o text-red" ></i><span class="fontCss"> 設定各費用額度提醒</span></a></li>
             </ul>
           </div>
           <!-- /.box-body -->
@@ -57,14 +53,19 @@
       </div>
       <!-- /.col -->
       <div class="col-md-9">
-         <app-form *ngIf="!type"
-         [dataLists]="dataLists"
-         [dataList]="dataList"
-         [data]="data"
-         (save)="save($event)"  
-         ></app-form>
-         <app-list
-         *ngIf="type"
+        <app-form *ngIf="type == 'add'"
+          [dataLists]="dataLists$ | async"
+          [dataList]="dataList$ | async"
+          [data]="data"
+          (save)="save($event)"  
+        ></app-form>
+        <app-list-total *ngIf="type == 'back'"
+          [dataLists]="dataLists$ | async"
+          [totalLists]="totalLists$ | async"
+          [sliderLists]="sliderLists$ | async"
+          [filterItem]="filterItem"
+        ></app-list-total>
+        <app-list *ngIf="type == 'back'"
           [dataLists]="dataLists$ | async"
           [filterItem]="filterItem"
           (edit)="edit($event)" 
@@ -78,4 +79,19 @@
   </section>
   <!-- /.content -->
 </div>
+ 
+
+<ng-template #templateRef let-dialogRef="dialogRef" let-ctx="dialogRef.context">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">設定各費用最大額度</h4>
+    </div>
+    <div class="modal-body">
+      <app-slider
+      [sliderLists]="sliderLists$ | async"
+      ></app-slider>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</ng-template>
  
