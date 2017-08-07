@@ -10,13 +10,14 @@ export const LISTEDIT = 'LISTEDIT';
 export const CLEARFORM = 'CLEARFORM';
 export const SLIDER = 'SLIDER';
 export const TOTALLISTS = 'TOTALLISTS';
-
+export const TYPE = 'TYPE';
 
 export interface AppState {
     dataLists: Array<any>,
     dataList: any,
     sliderLists: any,
-    totalLists: any
+    totalLists: any,
+    type: string
 }
 
 const initialState: AppState = {
@@ -53,7 +54,8 @@ const initialState: AppState = {
         text: null
     },
     sliderLists: { amount1: 15000, amount2: 12000, amount3: 7000, amount4: 3000 },
-    totalLists: {}
+    totalLists: {},
+    type: 'back'
 }
 
 export function counterReducer(state: AppState = initialState, action: Action) {
@@ -103,6 +105,11 @@ export function counterReducer(state: AppState = initialState, action: Action) {
         case TOTALLISTS:
             return _.assign({}, state, {
                 totalLists: action.payload
+            });
+
+        case TYPE:
+            return _.assign({}, state, {
+                type: action.payload
             });
 
         case RESET:

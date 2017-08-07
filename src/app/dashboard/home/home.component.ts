@@ -18,17 +18,17 @@ export class HomeComponent implements OnInit {
   dataList$: Observable<any>;
   sliderLists$: Observable<any>;
   totalLists$: Observable<any>;
+  type$: Observable<any>;
   @ViewChild('templateRef') templateRef: TemplateRef<any>;
 
   data = [{ 'item': '伙食費' },
-          { 'item': '住宿費' },
-          { 'item': '交通費' },
-          { 'item': '娛樂費' }]
+  { 'item': '住宿費' },
+  { 'item': '交通費' },
+  { 'item': '娛樂費' }]
   dataList = null;
   totalLists;
   filterItem = null;
-  data2 = [{ 1: '伙食費', 2: '住宿費' }];
-  type = "back";
+  data2 = [{ 1: '伙食費', 2: '住宿費' }]
   dialogRef: any;
 
   constructor(
@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
     this.dataList$ = this.homeService.dataList$;
     this.sliderLists$ = this.homeService.sliderLists$;
     this.totalLists$ = this.homeService.totalLists$;
+    this.type$ = this.homeService.type$;
   }
 
   ngOnInit() {
@@ -52,17 +53,15 @@ export class HomeComponent implements OnInit {
   }
 
   change(type) {
-    if (type == 'add') {
+  
       this.homeService.clearForm();
-    }
-    this.dataList = null;
-    this.type = type;
+    this.type(type);
   }
 
   save(data) {
     this.modalService.confirm('是否確定儲存？', "訊息").then((result) => {
       if (result) {
-        this.type = "back";
+        this.type("back");
         if (data.id) {
           var newDataList = _.assign({}, data.dataList, {
             id: data.id
@@ -88,7 +87,7 @@ export class HomeComponent implements OnInit {
     //var dataListFindById = _.find(this.dataLists, { id: data });
     this.homeService.listEdit(id);
     // this.dataList = dataListFindById;
-    this.type = "add";
+    this.type("edit");
   }
 
   delete(id) {
@@ -144,10 +143,14 @@ export class HomeComponent implements OnInit {
             total.amount4 += dataList.amount;
             break;
           }
-        }   
-      }     
+        }
+      }
     }));
     return total
   }
 
+  type(type) {
+    //this.type$.take(1).subscribe(type=> type);
+    this.homeService.type(type);
+  }
 }

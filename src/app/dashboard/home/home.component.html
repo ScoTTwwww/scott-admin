@@ -15,8 +15,8 @@
   <section class="content">
     <div class="row">
       <div class="col-md-3">
-        <a *ngIf="type == 'back'" class="btn btn-primary btn-block margin-bottom" (click)="change('add')"><span class="fontCss2">新增費用</span></a>
-        <a *ngIf="type == 'add'" class="btn btn-primary btn-block margin-bottom" (click)="change('back')"><span  class="fontCss2">返回費用列表</span></a>
+        <a *ngIf="(type$ | async) == 'back'" class="btn btn-primary btn-block margin-bottom" (click)="change('add')"><span class="fontCss2">新增費用</span></a>
+        <a *ngIf="((type$ | async) == 'add') || ((type$ | async) == 'edit')" class="btn btn-primary btn-block margin-bottom" (click)="change('back')"><span  class="fontCss2">返回費用列表</span></a>
         <div class="box box-solid">
           <div class="box-header with-border">
             <h3 class="box-title fontCss2">生活費用</h3>
@@ -53,19 +53,20 @@
       </div>
       <!-- /.col -->
       <div class="col-md-9">
-        <app-form *ngIf="type == 'add'"
+        <app-form *ngIf="((type$ | async) == 'add') || ((type$ | async) == 'edit')"
+          [type]="type$ | async"
           [dataLists]="dataLists$ | async"
           [dataList]="dataList$ | async"
           [data]="data"
           (save)="save($event)"  
         ></app-form>
-        <app-list-total *ngIf="type == 'back'"
+        <app-list-total *ngIf="(type$ | async) == 'back'"
           [dataLists]="dataLists$ | async"
           [totalLists]="totalLists$ | async"
           [sliderLists]="sliderLists$ | async"
           [filterItem]="filterItem"
         ></app-list-total>
-        <app-list *ngIf="type == 'back'"
+        <app-list *ngIf="(type$ | async) == 'back'"
           [dataLists]="dataLists$ | async"
           [filterItem]="filterItem"
           (edit)="edit($event)" 

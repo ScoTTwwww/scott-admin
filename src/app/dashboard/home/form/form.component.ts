@@ -10,6 +10,7 @@ import * as _ from 'lodash';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  @Input() type: string;
   @Input() data: any;
   @Input() dataLists: any;
   @Input() dataList: any;
